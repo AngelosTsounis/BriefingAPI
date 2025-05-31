@@ -1,4 +1,5 @@
 ﻿using ApiAggregator.Contracts.Request;
+using ApiAggregator.Services;
 using ApiAggregator.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +35,13 @@ public class BriefingController : ControllerBase
         var briefing = await _briefingService.GetBriefing(request);
 
         return Ok(briefing);
+    }
+
+    // Made these changes here
+    [HttpGet("stats")]
+    public IActionResult GetStats()
+    {
+        var stats = PerformanceStore.GetAllStats();
+        return Ok(stats);
     }
 }
